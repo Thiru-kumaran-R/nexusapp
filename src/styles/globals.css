@@ -1,0 +1,107 @@
+/* Add this at the top of your globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply text-gray-900 bg-gray-100;
+  @apply min-h-screen;
+
+}
+
+body {
+  @apply font-inter;
+  @apply overflow-y-auto;
+
+}
+
+
+
+/* Layout base */
+.bg-gray-100 {
+  @apply text-gray-900;
+}
+
+/* Header */
+.header {
+  @apply bg-white py-4 px-6 fixed w-full z-10 top-0 shadow-md;
+}
+
+.nav-link {
+  @apply text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium;
+}
+
+/* Main content */
+.main-content {
+  @apply py-10 mt-16; /* Adjust top margin to header's height */
+  @apply pt-16; /* Height of your header */
+  /* Subtract header and footer height from 100vh */
+  min-height: calc(100vh - 4rem - 3rem);
+  /* Ensure there is no overflow that might cause scrolling */
+  overflow-y: auto;
+  /* Other styles remain the same */
+  padding-top: 4rem; /* Height of your header, adjust if needed */
+
+}
+
+/* Footer */
+.footer {
+  @apply bg-gray-200 py-4 px-6 w-full;
+}
+
+/* Cards */
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden p-5 m-2;
+}
+
+.card-title {
+  @apply text-lg font-bold text-black mb-2;
+}
+
+.card-content {
+  @apply text-gray-700 text-sm;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply bg-black text-white font-bold py-2 px-4 rounded hover:bg-gray-900;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 text-white font-bold py-2 px-4 rounded hover:bg-gray-800;
+}
+
+/* Forms */
+/* Forms */
+.form-input {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-gray-300;
+}
+
+
+
+
+
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .lg\:p-4 {
+    @apply p-4;
+  }
+}
+
+
+/* Header */
+.header {
+  @apply bg-white py-4 px-6 fixed w-full z-10 top-0 shadow-md flex justify-between items-center;
+}
+
+.nav-link {
+  @apply text-gray-700 hover:text-black mx-2 py-2 rounded-md text-sm font-medium;
+}
+
+.logo a, .user-actions a {
+  @apply text-black no-underline;
+}
+
+/* You may need to adjust the margin and padding to fit your design */
