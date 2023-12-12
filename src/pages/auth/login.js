@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
-import MainLayout from '../components/layout/MainLayout';
+import MainLayout from '../../components/layout/MainLayout';
 
 // Validation schema for login form
 const LoginSchema = Yup.object().shape({
@@ -59,7 +59,7 @@ export default function Login() {
                         )}
                     </Formik>
                     <div className="text-sm text-center">
-                        <Link href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        <Link href="/auth/register" className="font-medium text-indigo-600 hover:text-indigo-500">
 
                                 Don't have an account? Register
 

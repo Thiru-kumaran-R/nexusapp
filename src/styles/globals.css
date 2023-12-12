@@ -105,3 +105,35 @@ body {
 }
 
 /* You may need to adjust the margin and padding to fit your design */
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+}
+.striped-progress-bar {
+  width: 100%;
+  height: 1rem; /* Same as h-4 in Tailwind */
+  background-color: #1f2937; /* gray-800 in Tailwind for a dark bar */
+  border-radius: 9999px; /* rounded-full in Tailwind */
+  background-image: linear-gradient(
+          45deg,
+          rgba(59, 130, 246, 0.6) 25%, /* blue-500 at 60% opacity for stripes */
+          transparent 25%,
+          transparent 50%,
+          rgba(59, 130, 246, 0.6) 50%,
+          rgba(59, 130, 246, 0.6) 75%,
+          transparent 75%,
+          transparent
+  );
+  background-size: 1rem 1rem;
+  animation: moving-stripes 0.5s linear infinite;
+}
+
+@keyframes moving-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1rem 0;
+  }
+}

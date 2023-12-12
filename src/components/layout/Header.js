@@ -20,8 +20,8 @@ export default function Header() {
             ]);
         }else{
             setrightMenuItems([
-                { href: '/login', label: 'Login' },
-                { href: '/register', label: 'Register' },
+                { href: '/auth/login', label: 'Login' },
+                { href: '/auth/register', label: 'Register' },
 
             ])
         }

@@ -11,7 +11,7 @@ const myFormat = printf(({ level, message, timestamp }) => {
 
 // Create the logger instance
 const logger = createLogger({
-    level: 'info', // Minimum log level to capture
+    level: 'debug', // Minimum log level to capture
     format: combine(
         colorize(),
         timestamp(),

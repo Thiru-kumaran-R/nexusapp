@@ -7,10 +7,9 @@ import bcrypt from 'bcryptjs';
 const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 10; // Default to 10 if not defined
 const customSalt = process.env.BCRYPT_CUSTOM_SALT || ''; // Default to an empty string if not defined
 
-async function encryptPassword(input) {
+export async function encryptPassword(input) {
     const saltedPassword = input + customSalt;
-    let password = await bcrypt.hash(saltedPassword, saltRounds);
-    return password;
+    return await bcrypt.hash(saltedPassword, saltRounds);
 }
 
 class User extends Model {
@@ -28,6 +27,7 @@ class User extends Model {
             let passwordToBeUpdated = await encryptPassword(updateData.password);
             this.password =passwordToBeUpdated
         }
+
         return this.save();
     }
     static async deleteById(userId) {
@@ -70,32 +70,33 @@ User.init({
     },
     email: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    usertype: {
+    userType: {
         type: DataTypes.STRING,
         allowNull: false
 
     },
+    institutionName: {
+        type: DataTypes.STRING
 
-    createdon: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
     },
-    updatedon: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+    organizationName: {
+        type: DataTypes.STRING
+
     }
+
 }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance
     modelName: 'User', // We need to choose the model name
     tableName: 'users', // Specify the table name
-    timestamps: false // Disable the automatic timestamps
+    timestamps: true // Disable the automatic timestamps
 });
 
 export default User;

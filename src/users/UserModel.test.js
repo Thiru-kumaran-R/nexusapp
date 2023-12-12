@@ -1,6 +1,10 @@
-import User from './UserModel'; // Adjust the path as necessary
+import User, {encryptPassword} from './UserModel'; // Adjust the path as necessary
 import sequelize from '@/db/dbConfig'; // Adjust the import based on your project structure
 import bcrypt from 'bcryptjs';
+import {expect, jest, test} from '@jest/globals';
+import logger from "@/logger";
+
+
 
 
 describe('User Model', () => {
@@ -9,7 +13,7 @@ describe('User Model', () => {
     });
 
     afterAll(async () => {
-        await sequelize.close(); // Close the database connection at the end of tests
+       await sequelize.close(); // Close the database connection at the end of tests
     });
 
     test('Create User', async () => {
@@ -17,8 +21,6 @@ describe('User Model', () => {
         const user = await User.insert(userData);
         expect(user.email).toBe(userData.email);
         expect(user.usertype).toBe(userData.usertype);
-        console.log(user.password);
-        console.log(userData.password);
         expect(user.password).not.toBe(userData.password); // The password should be hashed
     });
 
@@ -27,6 +29,14 @@ describe('User Model', () => {
         const user = await User.findByEmail(email);
         expect(user.email).toBe(email);
     });
+
+
+    test('bcrypt time', async () => {
+        logger.debug("bcrypt time");
+        const res  = await encryptPassword("password123");
+        logger.debug(res);
+    });
+
 
 
 
