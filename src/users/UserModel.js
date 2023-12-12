@@ -81,16 +81,7 @@ User.init({
         allowNull: false
 
     },
-    institutionname: {
-        type: DataTypes.STRING,
-        allowNull: true
 
-    },
-    industryname: {
-        type: DataTypes.STRING,
-        allowNull: true
-
-    },
     createdon: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

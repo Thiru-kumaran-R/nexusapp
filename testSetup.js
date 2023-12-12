@@ -11,4 +11,7 @@
 
 
 import dotenv from 'dotenv';
-dotenv.config({ path: '.env.test' });
+// dotenv.config({ path: '.env.test' });
+dotenv.config({ path: '.env.prod' });
+
+console.log('process.env.NODE_ENV', process.env.PG_HOST);

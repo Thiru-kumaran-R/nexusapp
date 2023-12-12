@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 describe('User Model', () => {
     beforeAll(async () => {
-        await sequelize.sync({ force: false }); // This will recreate the test database
+        await sequelize.sync({ force: true }); // This will recreate the test database
     });
 
     afterAll(async () => {
