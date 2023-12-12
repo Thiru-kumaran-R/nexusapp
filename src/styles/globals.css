@@ -37,7 +37,7 @@ body {
   @apply py-10 mt-16; /* Adjust top margin to header's height */
   @apply pt-16; /* Height of your header */
   /* Subtract header and footer height from 100vh */
-  min-height: calc(100vh - 4rem - 3rem);
+  min-height: calc(100vh - 10rem - 3rem);
   /* Ensure there is no overflow that might cause scrolling */
   overflow-y: auto;
   /* Other styles remain the same */
