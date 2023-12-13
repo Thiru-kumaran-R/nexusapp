@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {setGlobalState, useGlobalState} from "@/state";
+import {getGlobalState, setGlobalState, useGlobalState} from "@/state";
 
 
 // Error message container
@@ -120,5 +120,6 @@ function NotificationContainers() {
         </div>
     );
 }
+
 
 export { ErrorContainer, SuccessContainer, LoadingContainer,  NotificationContainers };

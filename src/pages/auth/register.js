@@ -4,7 +4,8 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
 import {hideProgress, showError, showProgress, showSuccess} from "@/components/notificationcontainers";
-import {apiClient} from "@/axiosclient";
+import {axiosiClient} from "@/axiosclient";
+import {saveUserInfo} from "@/auth/AuthService";
 
 
 const RegisterSchema = Yup.object().shape({
@@ -59,16 +60,16 @@ export default function Register() {
 
 
                             try {
-                                const response = await apiClient.post('/api/auth/register', values);
+                                const response = await axiosiClient.post('/api/auth/register', values);
 
                                 if (response.data.user) {
                                     // Decode token to get user details
                                     console.log(response.data.user)
                                     showSuccess('Successfully registered!');
 
-
+                                    saveUserInfo(response.data.user);
                                     // Redirect or perform other actions
-                                    //window.location.href = '/welcome';
+                                    window.location.href = '/';
                                 } else {
                                    showError('User not Registered');
                                 }
@@ -117,7 +118,7 @@ export default function Register() {
                                 </Field>
                                 <ErrorMessage name="userType" component="div" />
 
-                                {values.userType === 'institution' && (
+                                {(values.userType === 'institution' || values.userType === 'student') && (
                                     <>
                                         <Field
                                             type="text"

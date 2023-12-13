@@ -4,6 +4,9 @@ import Header from './Header';
 import {NotificationContainers} from "@/components/notificationcontainers"; // Assume you have a Header component
 
 export default function MainLayout({ children, title = 'Default Title' }) {
+
+
+
     return (
         <>
             <Head>

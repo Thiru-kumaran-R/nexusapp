@@ -1,18 +1,16 @@
-// db.js
 
-// db.js
 import { Sequelize } from 'sequelize';
 import pg from "pg";
 import logger from "@/logger";
 
-const  shouldLog = process.env.NODE_ENV !== 'production';
+
 
 const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, process.env.PG_PASSWORD, {
     host: process.env.PG_HOST,
     dialect: 'postgres',
     dialectModule: pg,
     port: process.env.PG_PORT,
-    logging: shouldLog,
+    logging: (query)=> logger.debug(query),
     pool: {
         max: 10,
         min: 0,

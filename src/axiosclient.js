@@ -3,12 +3,12 @@ import axios, { AxiosRequestConfig ,InternalAxiosRequestConfig} from 'axios';
 import {getGlobalState} from "./state";
 import {hideProgress, showError, showProgress} from "@/components/notificationcontainers";
 
-export const apiClient = axios.create({
+export const axiosiClient = axios.create({
     withCredentials: true,
     baseURL: `/`,
 });
 
-apiClient.interceptors.request.use(
+axiosiClient.interceptors.request.use(
     (config) => {
     // Check local storage for the token
         showProgress()
@@ -28,7 +28,7 @@ apiClient.interceptors.request.use(
     }
 );
 
-apiClient.interceptors.response.use(
+axiosiClient.interceptors.response.use(
     (response) => {
 
         hideProgress();

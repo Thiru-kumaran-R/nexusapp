@@ -2,9 +2,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
-import {apiClient} from "@/axiosclient";
+import {axiosiClient} from "@/axiosclient";
 import {showError, showSuccess} from "@/components/notificationcontainers";
 import jwtDecode from 'jwt-decode';
+import {saveUserInfo} from "@/auth/AuthService";
 
 // Validation schema for login form
 const LoginSchema = Yup.object().shape({
@@ -23,24 +24,22 @@ export default function Login() {
                         </h2>
                     </div>
                     <Formik
-                        initialValues={{ email: '', password: '' }}
+                        initialValues={{ email: 'admin1@admin.com', password: 'password' }}
                         validationSchema={LoginSchema}
                         onSubmit={async (values, {setSubmitting}) => {
 
 
                             try {
-                                const response = await apiClient.post('/api/auth/login', values);
-
-
-
+                                const response = await axiosiClient.post('/api/auth/login', values);
                                 if (response.data.user) {
                                     // Decode token to get user details
                                     console.log(response.data.user)
                                     showSuccess('Successfully Logged In!');
 
+                                    saveUserInfo(response.data.user);
 
                                     // Redirect or perform other actions
-                                    //window.location.href = '/welcome';
+                                    window.location.href = '/';
                                 } else {
 
                                     showError('Token not received');

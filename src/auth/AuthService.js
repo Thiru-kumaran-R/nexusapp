@@ -1,4 +1,4 @@
-import {setGlobalState} from "@/state";
+import {getGlobalState, setGlobalState} from "@/state";
 import {getCookie} from "@/shared/cookieService";
 import {validateToken} from "@/shared/jwtService";
 
@@ -20,6 +20,24 @@ export function loadUserFromStorage() {
     }
 
 }
+
+export function isAdmin() {
+    const user = getGlobalState("user")
+    return (user && user.role === "admin")
+}
+export function isStudent() {
+    const user = getGlobalState("user")
+    return (user && user.role === "student")
+}
+export function isInstitute() {
+    const user = getGlobalState("user")
+    return (user && user.role === "institution")
+}
+export function isOrganisation() {
+    const user = getGlobalState("user")
+    return (user && user.role === "organization")
+}
+
 
 export function saveUserInfo(user) {
     localStorage.setItem('user', JSON.stringify(user));

@@ -11,7 +11,9 @@ export default function Header() {
 
 
     useEffect(() => {
-        if(user.email !== "") {
+
+
+        if(user && user.email !== "") {
             setcenterMenuItems([
                 { href: '/industries', label: 'Industries' },
                 { href: '/students', label: 'Students' },
@@ -25,7 +27,7 @@ export default function Header() {
 
             ])
         }
-    }, []);
+    }, [user]);
 
 
 
