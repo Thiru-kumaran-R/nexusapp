@@ -9,7 +9,7 @@
     "seed-dev": "env-cmd -f .env.local babel-node src/scripts/initDb.js",
     "clean-dev": "env-cmd -f .env.local babel-node src/scripts/cleanDb.js",
     "seed-prod": "env-cmd -f .env.prod babel-node src/scripts/initDb.js",
-    "seed-vercel": "babel-node src/scripts/initDb.js",
+    "seed-vercel": "babel-node --config-file ./custombabel.config.json   src/scripts/initDb.js",
     "clean-prod": "env-cmd -f .env.prod babel-node src/scripts/cleanDb.js",
     "lint": "next lint"
   },
