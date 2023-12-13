@@ -14,9 +14,9 @@ function getOrgs(){
 }
 
 const generateUsers = (counts) => {
-    const {  institution, organization, admin } = counts;
+    const {  institution, studentsPerInstitute,organization, admin } = counts;
     const users = [];
-
+   // let studentsPerInstitute = 5;
     const createEmailPrefixFromName = (name) => {
         return name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/gi, '');
     };
@@ -31,13 +31,14 @@ const generateUsers = (counts) => {
         const college = allColleges[i];
         const emailPrefix = createEmailPrefixFromName(college.college);
         users.push({
-            email: `${emailPrefix}@institution.com`,
+            email: `institution${i+1}@institution.com`,
             userType: 'institution',
             institutionName: college.college,
             organizationName: null
         });
 
-        for (let j = 0; j < 5; j++) {
+
+        for (let j = 0; j < studentsPerInstitute; j++) {
 
             users.push({
                 email: `student${studentcount }@student.com`,
@@ -54,7 +55,7 @@ const generateUsers = (counts) => {
         const emailPrefix = createEmailPrefixFromName(org.name);
 
         users.push({
-            email: `${emailPrefix}@organization.com`,
+            email: `org${i+1}@org.com`,
             userType: 'organization',
             institutionName: null,
             organizationName: org.name
@@ -63,7 +64,7 @@ const generateUsers = (counts) => {
 
     for (let i = 0; i < admin; i++) {
         users.push({
-            email: `admin${i + 1}@test.com`,
+            email: `admin${i + 1}@admin.com`,
             userType: 'admin',
             institutionName: null,
             organizationName: null
@@ -75,8 +76,9 @@ const generateUsers = (counts) => {
 
 function  getSeedDataForUsers() {
 
-    const userCounts = { student: 2, institution: 1, organization: 1, admin: 1 };
-    const users = generateUsers(userCounts).map((user) => {
+
+    const seedConfig = { institution: 10,studentsPerInstitute:10, organization: 10, admin: 2 };
+    const users = generateUsers(seedConfig).map((user) => {
         const password = "password";
         return {
             ...user,

@@ -14,13 +14,13 @@ const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, pr
     port: process.env.PG_PORT,
     logging: shouldLog,
     pool: {
-        max: 10, // Example configuration
+        max: 10,
         min: 0,
         acquire: 30000,
         idle: 10000
     }
 });
 
-logger.info('DB connection established successfully to ' + process.env.PG_HOST + "@" + process.env.PG_DATABASE );
+ logger.debug('DB connection established successfully to ' + process.env.PG_HOST + "@" + process.env.PG_DATABASE );
 
 export default sequelize;
