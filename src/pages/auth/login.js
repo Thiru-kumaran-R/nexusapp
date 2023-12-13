@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
-import {axiosiClient} from "@/axiosclient";
+import {axiosClient} from "@/axiosclient";
 import {showError, showSuccess} from "@/components/notificationcontainers";
 import jwtDecode from 'jwt-decode';
 import {saveUserInfo} from "@/auth/AuthService";
@@ -30,7 +30,7 @@ export default function Login() {
 
 
                             try {
-                                const response = await axiosiClient.post('/api/auth/login', values);
+                                const response = await axiosClient.post('/api/auth/login', values);
                                 if (response.data.user) {
                                     // Decode token to get user details
                                     console.log(response.data.user)

@@ -23,19 +23,19 @@ export function loadUserFromStorage() {
 
 export function isAdmin() {
     const user = getGlobalState("user")
-    return (user && user.role === "admin")
+    return (user && user.userType === "admin")
 }
 export function isStudent() {
     const user = getGlobalState("user")
-    return (user && user.role === "student")
+    return (user && user.userType === "student")
 }
 export function isInstitute() {
     const user = getGlobalState("user")
-    return (user && user.role === "institution")
+    return (user && user.userType === "institution")
 }
 export function isOrganisation() {
     const user = getGlobalState("user")
-    return (user && user.role === "organization")
+    return (user && user.userType === "organization")
 }
 
 

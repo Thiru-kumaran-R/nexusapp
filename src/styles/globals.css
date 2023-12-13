@@ -137,3 +137,35 @@ body {
     background-position: 1rem 0;
   }
 }
+/* Tailwind CSS classes for form inputs, error messages, and buttons */
+.form-input {
+  @apply mb-4 p-2 border border-gray-300 rounded-md shadow-sm;
+}
+
+
+
+.btn-primary {
+  @apply bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.active-classold {
+  color: #4A90E2; /* A shade of blue that stands out yet fits with the overall design */
+  font-weight: bold; /* Makes the text slightly heavier to catch attention */
+  text-decoration: underline; /* Underlines the active link for additional emphasis */
+  padding-bottom: 2px; /* Ensures the underline does not look too detached */
+  border-bottom: 3px solid #4A90E2; /* A solid bottom border for a stronger visual indicator */
+}
+
+.active-class {
+  color: #ffffff; /* Choose a light color that will stand out on a darker background */
+  background-color: #3273dc; /* A vibrant, yet not too aggressive, shade of blue */
+  font-weight: 600; /* Slightly bolder than normal but not as heavy as bold */
+  padding: 10px 15px; /* Adequate padding to make the active link look like a clickable button */
+  border-radius: 5px; /* Softly rounded corners for a modern, button-like appearance */
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1); /* A subtle shadow for depth, ensuring the active link 'pops' a bit */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.nav-link:hover:not(.active-class) {
+  background-color: #f5f5f5; /* A very light grey for hover, won't activate for the current active link */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}

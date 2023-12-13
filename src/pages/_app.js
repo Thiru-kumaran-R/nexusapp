@@ -32,8 +32,7 @@ MyApp.getInitialProps = async (appContext) => {
 
         try {
           userPayload = await  jwt.verify(token, process.env.JWT_SECRET)
-          console.log("userPayload",userPayload)
-          // userPayload = decodeJWT(token); // Your server-side JWT decoding function
+
         }catch (e) {
           console.log(e)
         }

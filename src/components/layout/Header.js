@@ -1,32 +1,59 @@
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from "@/state";
+import {isAdmin, isInstitute, isStudent} from "@/auth/AuthService";
+import {useRouter} from "next/router";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [centerMenuItems, setcenterMenuItems] = useState([]);
     const [rightMenuItems, setrightMenuItems] = useState([]);
-
+    const router = useRouter();
     const [user] = useGlobalState("user");
 
-
+    function isActive(route) {
+        return route === router.pathname ? 'active-class' : ''; // Replace 'active-class' with your actual active class
+    }
     useEffect(() => {
 
+        let centerMenuItemsInput = []
+        let rightMenuItemsInput = []
 
         if(user && user.email !== "") {
-            setcenterMenuItems([
+            centerMenuItemsInput = [
                 { href: '/industries', label: 'Industries' },
                 { href: '/students', label: 'Students' },
                 { href: '/institutions', label: 'Institutions' },
-                // ... other center menu items ...
-            ]);
+
+            ];
+
+
+
+            if(isStudent() || isAdmin()){
+
+                centerMenuItemsInput.push({ href: '/uploadindividualproject', label: 'Upload Individual Project' })
+            }
+            if(isInstitute() || isAdmin()){
+
+                centerMenuItemsInput.push({ href: '/uploadinstituteproject', label: 'Upload Institute Project' })
+            }
+
+            rightMenuItemsInput = [
+                { href: '/auth/logout',label: 'Logout'}
+
+
+            ]
         }else{
-            setrightMenuItems([
+            rightMenuItemsInput = [
                 { href: '/auth/login', label: 'Login' },
                 { href: '/auth/register', label: 'Register' },
 
-            ])
+            ]
         }
+
+        setcenterMenuItems(centerMenuItemsInput)
+        setrightMenuItems(rightMenuItemsInput)
+
     }, [user]);
 
 
@@ -68,7 +95,7 @@ export default function Header() {
                 {/* Mobile Menu Items */}
                 <div className="flex flex-col items-center">
                     {centerMenuItems.concat(rightMenuItems).map(item => (
-                        <Link key={item.href} href={item.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                        <Link key={item.href} href={item.href} className={`nav-link ${isActive(item.href)}`} onClick={() => setIsMenuOpen(false)}>
                             {item.label}
                         </Link>
                     ))}
@@ -78,13 +105,13 @@ export default function Header() {
             {/* Full Menu for Larger Screens */}
             <nav className="hidden md:flex space-x-4 nav-links">
                 {centerMenuItems.map(item => (
-                    <Link key={item.href} href={item.href} className="nav-link"
+                    <Link key={item.href} href={item.href} className={`nav-link ${isActive(item.href)}`}
                     >{item.label} </Link>
                 ))}
             </nav>
                 <div className="hidden md:flex user-actions">
                     {rightMenuItems.map(item => (
-                        <Link key={item.href} href={item.href} className="nav-link"
+                        <Link key={item.href} href={item.href} className={`nav-link ${isActive(item.href)}`}
                         >{item.label} </Link>
                     ))}
                 </div>

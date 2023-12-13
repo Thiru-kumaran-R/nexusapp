@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
 import {hideProgress, showError, showProgress, showSuccess} from "@/components/notificationcontainers";
-import {axiosiClient} from "@/axiosclient";
+import {axiosClient} from "@/axiosclient";
 import {saveUserInfo} from "@/auth/AuthService";
 
 
@@ -60,7 +60,7 @@ export default function Register() {
 
 
                             try {
-                                const response = await axiosiClient.post('/api/auth/register', values);
+                                const response = await axiosClient.post('/api/auth/register', values);
 
                                 if (response.data.user) {
                                     // Decode token to get user details
