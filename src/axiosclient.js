@@ -4,6 +4,7 @@ import {getGlobalState} from "./state";
 import {hideProgress, showError, showProgress} from "@/components/notificationcontainers";
 
 export const apiClient = axios.create({
+    withCredentials: true,
     baseURL: `/`,
 });
 
@@ -11,13 +12,13 @@ apiClient.interceptors.request.use(
     (config) => {
     // Check local storage for the token
         showProgress()
-    const token = getGlobalState("access_token");
-
-
-    // If the token exists, set it in the headers
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
+    // const token = getGlobalState("access_token");
+    //
+    //
+    // // If the token exists, set it in the headers
+    // if (token) {
+    //     config.headers.Authorization = `Bearer ${token}`;
+    // }
 
     return config;
 },

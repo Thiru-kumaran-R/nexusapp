@@ -61,11 +61,19 @@ export default function Register() {
                             try {
                                 const response = await apiClient.post('/api/auth/register', values);
 
-                                // Check for a 2xx status code which indicates success
-                                if (response.status >= 200 && response.status < 300) {
+                                if (response.data.user) {
+                                    // Decode token to get user details
+                                    console.log(response.data.user)
                                     showSuccess('Successfully registered!');
-                                    // Perform any additional actions like redirecting the user
+
+
+                                    // Redirect or perform other actions
+                                    //window.location.href = '/welcome';
+                                } else {
+                                   showError('User not Registered');
                                 }
+
+
 
                             } catch (error) {
                                 // Errors are already handled by the axios interceptor

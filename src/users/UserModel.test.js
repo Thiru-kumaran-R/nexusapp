@@ -9,7 +9,7 @@ import logger from "@/logger";
 
 describe('User Model', () => {
     beforeAll(async () => {
-        await sequelize.sync({ force: true }); // This will recreate the test database
+    //   await sequelize.sync({ force: true }); // This will recreate the test database
     });
 
     afterAll(async () => {
@@ -17,10 +17,10 @@ describe('User Model', () => {
     });
 
     test('Create User', async () => {
-        const userData = { email: 'test@example.com', password: 'password123', usertype: 'admin' };
+        const userData = { email: 'test@example.com', password: 'password123', userType: 'admin' };
         const user = await User.insert(userData);
         expect(user.email).toBe(userData.email);
-        expect(user.usertype).toBe(userData.usertype);
+        expect(user.userType).toBe(userData.userType);
         expect(user.password).not.toBe(userData.password); // The password should be hashed
     });
 
@@ -34,6 +34,13 @@ describe('User Model', () => {
     test('bcrypt time', async () => {
         logger.debug("bcrypt time");
         const res  = await encryptPassword("password123");
+        logger.debug(res);
+    });
+    test('findByEmailAndPassword check', async () => {
+        logger.debug("findByEmailAndPassword time");
+        const res  = await User.findByEmailAndPassword('test@example.com',"password123");
+        logger.debug(JSON.stringify(res));
+        expect(res.email).toBe('test@example.com');
         logger.debug(res);
     });
 

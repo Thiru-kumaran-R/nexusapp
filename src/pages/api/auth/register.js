@@ -2,6 +2,7 @@
 
 import User from "@/users/UserModel";
 import logger from "@/logger";
+import {createUserObject} from "@/users/userRepository";
 // Import your user service or database operations here
 // For example, import { createUser } from '../../services/userService';
 
@@ -12,18 +13,21 @@ export default async function handler(req, res) {
         const { email, password, userType, institutionName, organizationName } = req.body;
 
         try {
-            // Here you would call your user creation logic, this is just an example
-            // Replace this with actual logic to create a user in your database
-            // const user = await createUser({ email, password, userType, institutionName, organizationName });
+
 
             const userData = { email, password, userType, institutionName, organizationName };
             logger.debug("Attempting to create user");
             const user = await User.insert(userData);
 
-            logger.debug("UUUser Created");
+            const serialized = createUserObject(user);
+
+            res.setHeader('Set-Cookie', serialized);
+            logger.debug("User Created");
             // If user creation was successful, return a success response
             res.status(200).json({ message: 'User successfully registered', user });
         } catch (error) {
+            logger.debug("Error Creating User");
+            logger.debug(error);
             // If there was an error creating the user, return an error response
             res.status(500).json({ message: error.message });
         }

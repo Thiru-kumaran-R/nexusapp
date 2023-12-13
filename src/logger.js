@@ -9,9 +9,11 @@ const myFormat = printf(({ level, message, timestamp }) => {
     return `${timestamp} ${level}: ${message}`;
 });
 
+const level = process.env.LOG_LEVEL || 'debug';
+
 // Create the logger instance
 const logger = createLogger({
-    level: 'debug', // Minimum log level to capture
+    level: level, // Minimum log level to capture
     format: combine(
         colorize(),
         timestamp(),

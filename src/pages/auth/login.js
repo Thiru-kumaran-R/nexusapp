@@ -2,6 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
+import {apiClient} from "@/axiosclient";
+import {showError, showSuccess} from "@/components/notificationcontainers";
+import jwtDecode from 'jwt-decode';
 
 // Validation schema for login form
 const LoginSchema = Yup.object().shape({
@@ -22,11 +25,37 @@ export default function Login() {
                     <Formik
                         initialValues={{ email: '', password: '' }}
                         validationSchema={LoginSchema}
-                        onSubmit={(values, { setSubmitting }) => {
-                            setTimeout(() => {
-                                alert(JSON.stringify(values, null, 2));
+                        onSubmit={async (values, {setSubmitting}) => {
+
+
+                            try {
+                                const response = await apiClient.post('/api/auth/login', values);
+
+
+
+                                if (response.data.user) {
+                                    // Decode token to get user details
+                                    console.log(response.data.user)
+                                    showSuccess('Successfully Logged In!');
+
+
+                                    // Redirect or perform other actions
+                                    //window.location.href = '/welcome';
+                                } else {
+
+                                    showError('Token not received');
+                                }
                                 setSubmitting(false);
-                            }, 400);
+
+                            } catch (error) {
+                                // Errors are already handled by the axios interceptor
+                                showError(error.message)
+                                setSubmitting(false);
+                            }
+
+
+
+
                         }}
                     >
                         {({ isSubmitting }) => (
