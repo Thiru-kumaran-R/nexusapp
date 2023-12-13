@@ -34,7 +34,7 @@ export const getServerSideProps = withLoggedIn(async (context) => {
 
 
 
-export default function Welcome({ data, error }) {
+export default function Students({ data, error }) {
 
     useEffect(() => {
         if(error)

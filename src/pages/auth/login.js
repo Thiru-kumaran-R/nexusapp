@@ -27,8 +27,6 @@ export default function Login() {
                         initialValues={{ email: 'admin1@admin.com', password: 'password' }}
                         validationSchema={LoginSchema}
                         onSubmit={async (values, {setSubmitting}) => {
-
-
                             try {
                                 const response = await axiosClient.post('/api/auth/login', values);
                                 if (response.data.user) {
