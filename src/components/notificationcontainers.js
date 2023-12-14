@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {getGlobalState, setGlobalState, useGlobalState} from "@/state";
+import React, {useEffect, useState} from "react";
+import {setGlobalState, useGlobalState} from "@/state";
 
 
 // Error message container

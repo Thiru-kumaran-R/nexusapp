@@ -1,4 +1,3 @@
-
 import collegesData from './assets/colleges.json';
 import orgsData from './assets/orgs.json';
 import User from "@/users/UserModel";

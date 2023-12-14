@@ -5,8 +5,9 @@ export default function anonymousUiMiddleWare(req) {
     const { pathname } = req.nextUrl;
     console.log("unAuthenticatedUiMiddleWare pathname" +pathname)
 
+    // List down all tyhe routes where anonymous user can go
     const allowedRoutes =["/auth/login","/auth/register"]
-    // If the pathname is in the list of allowed routes, continue with the request
+
     if (allowedRoutes.includes(pathname)) {
         return NextResponse.next();
     }

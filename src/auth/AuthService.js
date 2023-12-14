@@ -44,6 +44,20 @@ export function saveUserInfo(user) {
     setGlobalState("user",user);
 }
 
+export function saveTokenInfo(access_token) {
+    localStorage.setItem('access_token', JSON.stringify(access_token));
+    console.log("access_token",access_token)
+    setGlobalState("access_token",access_token);
+}
+
+export function getAccessToken() {
+    const resp = localStorage.getItem('access_token') || null;
+    if (resp) {
+        return JSON.parse(resp);
+    }
+    return null;
+}
+
 
 export function removeAuthFromStorage() {
     localStorage.removeItem('user');

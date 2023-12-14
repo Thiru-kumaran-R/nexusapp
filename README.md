@@ -17,4 +17,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ### Tasks
-- [x] Add Register Page and API
+- [ ] Add Upload Individual Project
+- [ ] Add Plagarism Check
+  - [ ] Add Plagarism Check for Project based on summary
+- [ ] Search with Chat bot about projects
+  - langchain
+  - 
+- [ ] Search Project By Filter
+  - [ ] Add Pagination 
+

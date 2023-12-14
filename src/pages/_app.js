@@ -1,8 +1,7 @@
 import '@/styles/globals.css'
 import {useEffect} from "react";
-import { useGlobalState} from "@/state";
+import {useGlobalState} from "@/state";
 import App from 'next/app';
-
 
 
 function MyApp({ Component, pageProps,userPayload }) {

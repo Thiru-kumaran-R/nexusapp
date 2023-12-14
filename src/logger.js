@@ -1,5 +1,5 @@
 // logger.js
-import { createLogger, format, transports } from 'winston';
+import {createLogger, format, transports} from 'winston';
 
 // Destructure the format module for ease of use
 const { combine, timestamp, printf, colorize, json } = format;

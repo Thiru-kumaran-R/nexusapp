@@ -1,10 +1,10 @@
-import { Formik, Form, Field } from 'formik';
-import  ErrorMessage  from '../../components/ErrorMessage';
+import {Field, Form, Formik} from 'formik';
+import ErrorMessage from '../../components/ErrorMessage';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
-import {hideProgress, showError, showProgress, showSuccess} from "@/components/notificationcontainers";
-import {axiosClient} from "@/axiosclient";
+import {showError, showSuccess} from "@/components/notificationcontainers";
+import {axiosLocalClient} from "@/axiosClient";
 import {saveUserInfo} from "@/auth/AuthService";
 
 
@@ -60,7 +60,7 @@ export default function Register() {
 
 
                             try {
-                                const response = await axiosClient.post('/api/auth/register', values);
+                                const response = await axiosLocalClient.post('/api/auth/register', values);
 
                                 if (response.data.user) {
                                     // Decode token to get user details

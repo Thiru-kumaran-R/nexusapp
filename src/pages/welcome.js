@@ -1,8 +1,6 @@
 import MainLayout from '../components/layout/MainLayout';
 import {useEffect} from "react";
-import {showError, showSuccess} from "@/components/notificationcontainers";
-import {saveUserInfo} from "@/auth/AuthService";
-import {axiosNoProgressClient} from "@/axiosNoProgressClient";
+import {showError} from "@/components/notificationcontainers";
 import {getAxiosErrorMessage} from "@/shared/errorFormatter";
 import User from "@/users/UserModel";
 import withLoggedIn from "@/guards/withLoggedIn";

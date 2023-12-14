@@ -1,11 +1,6 @@
-
 import sequelize from '@/db/dbConfig';
 import logger from "@/logger";
 import {cleanUsers} from "@/scripts/UserDataCreator"; // Adjust the path as necessary
-
-
-
-
 
 
 export async function cleanDatabase() {

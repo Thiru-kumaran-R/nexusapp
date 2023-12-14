@@ -1,9 +1,11 @@
 import Head from 'next/head';
 import Footer from './Footer'; // Assume you have a Footer component
 import Header from './Header';
-import {NotificationContainers} from "@/components/notificationcontainers"; // Assume you have a Header component
+import {NotificationContainers} from "@/components/notificationcontainers";
+import {useEffect} from "react"; // Assume you have a Header component
 
 export default function MainLayout({ children, title = 'Default Title' }) {
+
 
 
 

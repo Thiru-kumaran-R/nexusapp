@@ -1,11 +1,10 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import MainLayout from '../../components/layout/MainLayout';
-import {axiosClient} from "@/axiosclient";
+import {axiosLocalClient} from "@/axiosClient";
 import {showError, showSuccess} from "@/components/notificationcontainers";
-import jwtDecode from 'jwt-decode';
-import {saveUserInfo} from "@/auth/AuthService";
+import {saveTokenInfo, saveUserInfo} from "@/auth/AuthService";
 
 // Validation schema for login form
 const LoginSchema = Yup.object().shape({
@@ -28,13 +27,15 @@ export default function Login() {
                         validationSchema={LoginSchema}
                         onSubmit={async (values, {setSubmitting}) => {
                             try {
-                                const response = await axiosClient.post('/api/auth/login', values);
+                                const response = await axiosLocalClient.post('/api/auth/login', values);
                                 if (response.data.user) {
                                     // Decode token to get user details
                                     console.log(response.data.user)
                                     showSuccess('Successfully Logged In!');
 
-                                    saveUserInfo(response.data.user);
+
+                                    saveTokenInfo(response.data.token);
+
 
                                     // Redirect or perform other actions
                                     window.location.href = '/';

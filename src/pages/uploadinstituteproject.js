@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import {Field, Form, Formik} from 'formik';
 
 import * as Yup from 'yup';
 import MainLayout from "@/components/layout/MainLayout";

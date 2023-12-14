@@ -1,4 +1,5 @@
 import User from "@/users/UserModel";
+
 export default async function handler(req, res) {
     const { id, userType } = req.query;
 

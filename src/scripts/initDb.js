@@ -1,4 +1,3 @@
-
 // dbInit.js
 import sequelize from '@/db/dbConfig';
 import logger from "@/logger";

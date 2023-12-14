@@ -1,8 +1,6 @@
-
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 import pg from "pg";
 import logger from "@/logger";
-
 
 
 const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, process.env.PG_PASSWORD, {

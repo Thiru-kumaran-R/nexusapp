@@ -1,6 +1,3 @@
-
-
-import jwt from 'jsonwebtoken';
 import {verifyToken} from "@/shared/jwtService";
 
 // This is your higher-order function

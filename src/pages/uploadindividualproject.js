@@ -1,9 +1,11 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import React, {useEffect} from 'react';
+import {Field, Form, Formik} from 'formik';
 
 import * as Yup from 'yup';
 import MainLayout from "@/components/layout/MainLayout";
 import ErrorMessage from "@/components/ErrorMessage";
+import {axiosAiClient} from "@/axiosClient";
+
 
 
 const ProjectUploadSchema = Yup.object().shape({
@@ -19,6 +21,32 @@ const ProjectUploadSchema = Yup.object().shape({
 });
 
 export default function ProjectUploadForm() {
+
+    useEffect(() => {
+
+        axiosAiClient.get('/api/answer').then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error(error.response.data);
+                console.error(error.response.status);
+                console.error(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Error', error.message);
+            }
+            console.error(error.config);
+        });
+
+
+    }, []);
+
     return (
         <MainLayout title="Upload Individual Project">
             <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

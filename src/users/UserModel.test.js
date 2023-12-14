@@ -1,10 +1,7 @@
 import User, {encryptPassword} from './UserModel'; // Adjust the path as necessary
 import sequelize from '@/db/dbConfig'; // Adjust the import based on your project structure
-import bcrypt from 'bcryptjs';
-import {expect, jest, test} from '@jest/globals';
+import {expect, test} from '@jest/globals';
 import logger from "@/logger";
-
-
 
 
 describe('User Model', () => {

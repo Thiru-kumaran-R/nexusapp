@@ -4,12 +4,8 @@ import {serialize} from "cookie";
 
 const JWT_SECRET = process.env.JWT_SECRET; // You should set this in your .env file
 
-export function createUserObject(user) {
-    const token = jwt.sign(
-        {userId: user.id, email: user.email,userType: user.userType, institutionName: user.institutionName, organizationName: user.organizationName},
-        JWT_SECRET,
-        {expiresIn: '24h'} // Token will expire in 1 hour
-    );
+export function createUserObject(token) {
+
 
     // Set the token in a cookie
     const serialized = serialize('accessToken', token, {
