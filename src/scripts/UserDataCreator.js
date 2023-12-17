@@ -108,7 +108,7 @@ export async function seedUsers(){
 
 
 export async function cleanUsers(){
-    logger.info("Cleaning users");
-    await User.truncate();
-    logger.info("Cleaning users Complete");
+    logger.info("Deleting users table");
+    await User.drop();
+    logger.info("Users table deleted");
 }
