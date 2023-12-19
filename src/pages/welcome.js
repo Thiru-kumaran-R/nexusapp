@@ -37,7 +37,7 @@ export default function Welcome({ data, error }) {
 
     return (
         <MainLayout title="Home Page">
-            <h1>Welcome Home {data.length}</h1>
+            <h1>Welcome </h1>
         </MainLayout>
     );
 }

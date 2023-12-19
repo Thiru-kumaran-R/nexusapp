@@ -46,7 +46,7 @@ export function saveUserInfo(user) {
 
 export function saveTokenInfo(access_token) {
     localStorage.setItem('access_token', JSON.stringify(access_token));
-    console.log("access_token",access_token)
+    //console.log("access_token",access_token)
     setGlobalState("access_token",access_token);
 }
 

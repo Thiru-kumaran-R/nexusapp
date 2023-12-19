@@ -25,11 +25,15 @@ export  function  ProjectDetails() {
     const { id } = router.query;
     const [project, setProject] = React.useState(null);
 
+    // Chat Implement here
+
     React.useEffect(() => {
         if (id) {
             axiosAiClient.get(`/api/projects/${id}`).then((response) => {
                 console.log(response.data)
-                setProject(response.data);
+                const project = response.data;
+                project.members = project.members ? project.members : [];
+                setProject(project);
             });
         }
     }, [id]);
