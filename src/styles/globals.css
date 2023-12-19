@@ -169,3 +169,7 @@ body {
   background-color: #f5f5f5; /* A very light grey for hover, won't activate for the current active link */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
+
+.react-tagsinput-input{
+  width: 180px;
+}
