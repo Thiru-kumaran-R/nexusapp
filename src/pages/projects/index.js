@@ -25,31 +25,33 @@ export default function AllProjects() {
 
     return (
         <MainLayout title="All Projects">
-            <div className="container mx-auto px-4 sm:px-8">
-                <h1 className="text-2xl font-semibold mb-8">Welcome to the projects</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <h1 className="text-2xl font-semibold mb-8">All Projects</h1>
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
                     {projects.map((project, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-                            <h2 className="text-xl font-bold mb-2">{project.title}</h2>
-                            <p className="text-gray-700 text-base mb-4">
-                                {project.description.length > 100 ? project.description.substring(0, 100) + '...' : project.description}
+                        <div key={index} className="break-inside-avoid p-4 bg-white rounded-lg shadow-md mb-4">
+                            <h2 className="text-lg font-bold mb-2">{project.title}</h2>
+                            <p className="text-gray-700 text-sm mb-4">
+                                {project.description.length > 150 ? project.description.substring(0, 150) + '...' : project.description}
                             </p>
-                            <p className="text-gray-600 text-xs mb-2">Date Created: {new Date(project.date_created).toLocaleDateString()}</p>
+                            <div className="text-gray-600 text-xs mb-4">Date Created: {new Date(project.date_created).toLocaleDateString()}</div>
                             <div className="mb-4">
-                                <strong>Categories:</strong>
-                                <ul className="list-disc pl-5">
+                                <strong className="font-bold">Categories:</strong>
+                                <ul className="list-disc list-inside">
                                     {project.categories.map((category, catIndex) => (
                                         <li key={catIndex} className="text-gray-600 text-sm">{category}</li>
                                     ))}
                                 </ul>
                             </div>
-                            <Link href={`/projects/${project.id}`}>
-                                <a className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                                    View
-                                </a>
-                            </Link>
+
+
+                            <Link href={`/projects/${project.id}`} className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
+
+                                View
+
+                        </Link>
                         </div>
-                    ))}
+                        ))}
                 </div>
             </div>
         </MainLayout>

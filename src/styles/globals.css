@@ -41,7 +41,8 @@ body {
   /* Ensure there is no overflow that might cause scrolling */
   overflow-y: auto;
   /* Other styles remain the same */
-  padding-top: 4rem; /* Height of your header, adjust if needed */
+  padding-top: 0px; /* Height of your header, adjust if needed *!*/
+  margin-top: 0px;
 
 }
 

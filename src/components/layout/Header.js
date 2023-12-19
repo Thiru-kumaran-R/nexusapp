@@ -32,12 +32,12 @@ export default function Header() {
 
             if(isStudent() || isAdmin()){
 
-                centerMenuItemsInput.push({ href: '/uploadindividualproject', label: 'Upload Individual Project' })
+                centerMenuItemsInput.push({ href: '/uploadindividualproject', label: 'Upload Project' })
             }
-            if(isInstitute() || isAdmin()){
-
-                centerMenuItemsInput.push({ href: '/uploadinstituteproject', label: 'Upload Institute Project' })
-            }
+            // if(isInstitute() || isAdmin()){
+            //
+            //     centerMenuItemsInput.push({ href: '/uploadinstituteproject', label: 'Upload Institute Project' })
+            // }
 
             rightMenuItemsInput = [
                 { href: '/auth/logout',label: 'Logout'}

@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      columnBreak: {
+        avoid: 'break-inside-avoid',
+      },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
       },
