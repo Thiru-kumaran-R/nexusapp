@@ -26,7 +26,7 @@ export default async function handler(req, res) {
             const token = jwt.sign(
                 {userId: user.id, email: user.email,userType: user.userType, institutionName: user.institutionName, organizationName: user.organizationName},
                 JWT_SECRET,
-                {expiresIn: '24h'} // Token will expire in 1 hour
+                {expiresIn: '365h'} // Token will expire in 365 hours (15 days), for testing purposes
             );
             // Create a JWT token
             const serialized = createUserObject(token);

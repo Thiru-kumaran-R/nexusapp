@@ -32,11 +32,7 @@ export default function Login() {
                                     // Decode token to get user details
                                     console.log(response.data.user)
                                     showSuccess('Successfully Logged In!');
-
-
                                     saveTokenInfo(response.data.token);
-
-
                                     // Redirect or perform other actions
                                     window.location.href = '/';
                                 } else {
