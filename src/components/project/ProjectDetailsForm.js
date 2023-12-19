@@ -40,6 +40,31 @@ function getScoreShade(score) {
 const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
     if (!isOpen) return null;
 
+    const extractData = () => {
+        return Object.values(plagiarismResults).flatMap(project => {
+            return project.summary.map(item => {
+                let sourceCodeDetails = null
+                if(project.sourcecode)
+                     sourceCodeDetails = project.sourcecode.find(sc => sc.id === item.id);
+                const sourceCodeSimilarity = sourceCodeDetails ? sourceCodeDetails.similarity : 'N/A';
+
+
+
+
+                const summarySimilarity = item.similarity || 'N/A';
+
+                return {
+                    id: item.id,
+                    title: item.title,
+                    sourceCodeSimilarity,
+                    summarySimilarity,
+                };
+            });
+        });
+    };
+
+    const data = extractData();
+
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center p-4 z-50">
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-lg mx-auto p-6">
@@ -57,7 +82,7 @@ const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
 
-                            {plagiarismResults.map((item, index) => (
+                            {data.map((item, index) => (
                                 <tr key={index} className="hover:bg-gray-50">
                                     <td className="py-2 text-left">
 
@@ -119,7 +144,7 @@ function groupedByProjectId(data) {
 
 export default function ProjectDetailsForm({ initialData }) {
     const [isDialogOpen, setDialogOpen] = useState(false);
-    const [plagiarismResponses, setPlagiarismResponses] = useState([]);
+    const [plagiarismResponses, setPlagiarismResponses] = useState({});
     const router = useRouter();
     const handleCloseDialog = () => {
         setDialogOpen(false);
@@ -141,7 +166,7 @@ export default function ProjectDetailsForm({ initialData }) {
             console.log("groupedByProjectId");
             console.log(groupedByProjectId(response.data.result.all_plagarism_reponses));
             if (response.data.result.all_plagarism_reponses?.length > 0) {
-                setPlagiarismResponses(response.data.result.all_plagarism_reponses);
+                setPlagiarismResponses(groupedByProjectId(response.data.result.all_plagarism_reponses));
                 setDialogOpen(true); // Open the dialog if there are plagiarism responses
             }else {
 

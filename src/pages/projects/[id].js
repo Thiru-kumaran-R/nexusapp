@@ -82,6 +82,9 @@ export  function  ProjectDetails() {
                     </div>
                 </div>
             </div>
+            <Link href={`/projects/chat/${id}`}  className="chat-icon">
+                <i className="fas fa-comments"></i>
+            </Link>
         </MainLayout>
     );
 };

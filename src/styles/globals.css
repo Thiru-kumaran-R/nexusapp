@@ -1,5 +1,6 @@
 /* Add this at the top of your globals.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -173,4 +174,25 @@ body {
 
 .react-tagsinput-input{
   width: 180px;
+}
+
+.mh-60{
+  min-height: 60vh;
+}
+
+.chat-icon {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 24px; /* Adjust size as needed */
+  color: #blue; /* Your color choice */
+  background: white; /* Or any color that matches your design */
+  border-radius: 50%;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2); /* Optional shadow */
+  z-index: 1000; /* Ensure it's above other elements */
 }
