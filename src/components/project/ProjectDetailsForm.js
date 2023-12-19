@@ -30,6 +30,9 @@ export default function ProjectDetailsForm({ initialData }) {
 
                 axiosAiClient.post('/api/projects', values).then((response) => {
                     console.log(response.data);
+
+                    //Agalya & Team TODO start working from here????
+
                     setSubmitting(false);
                 })
 
