@@ -19,7 +19,7 @@ const ProjectUploadSchema = Yup.object().shape({
     theme: Yup.string().required('Theme is required'),
     domain: Yup.string().required('Domain is required'),
     projectSummary: Yup.string().required('Project Summary is required'),
-    project_type: Yup.string(),
+    project_type: Yup.string()
 });
 function truncateText(text, maxLength) {
     if (text.length > maxLength) {
@@ -29,11 +29,12 @@ function truncateText(text, maxLength) {
 }
 
 function getScoreShade(score) {
-    if (score <= 20) return 'bg-green-100';
-    if (score <= 40) return 'bg-green-300';
-    if (score <= 60) return 'bg-yellow-300';
-    if (score <= 80) return 'bg-orange-400';
-    return 'bg-red-500'; // Scores above 80
+    //text-red-500
+    if (score <= 20) return 'text-green-100';
+    if (score <= 40) return 'text-green-300';
+    if (score <= 60) return 'text-yellow-300';
+    if (score <= 80) return 'text-orange-400';
+    return 'text-red-500'; // Scores above 80
 }
 
 const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
@@ -43,22 +44,31 @@ const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center p-4 z-50">
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-lg mx-auto p-6">
                 <div className="text-center">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Plagiarism Check Results</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Possible Duplicates</h3>
                     <div className="mt-2 px-7 py-3 bg-gray-100 rounded-lg">
                         <table className="min-w-full divide-y divide-gray-300">
+
+                            <thead className="bg-gray-50">
+                            <tr>
+                                <th>Name</th>
+                                <th>Summary</th>
+                                <th>Source Code</th>
+                            </tr>
+                            </thead>
                             <tbody className="divide-y divide-gray-200">
+
                             {plagiarismResults.map((item, index) => (
                                 <tr key={index} className="hover:bg-gray-50">
                                     <td className="py-2 text-left">
 
                                         <Link target="_blank" href={`/projects/${item.id}`} className="font-semibold text-gray-800 hover:text-blue-600 hover:underline" title={item.title}>
 
-                                            {truncateText(item.title, 100)}
+                                            {truncateText(item.title, 35)}
                                         </Link>
 
                                     </td>
-                                    <td className={`py-2 text-right ${getScoreShade(item.similarity)}`}>
-                      <span className="font-bold text-white px-2 py-1 rounded">
+                                    <td className={`py-2 text-right `}>
+                      <span className={`font-bold px-2 py-1 rounded ${getScoreShade(item.similarity)}`} >
                         {item.similarity}%
                       </span>
                                     </td>
@@ -82,51 +92,29 @@ const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
 };
 
 
+function groupedByProjectId(data) {
 
-const PlagiarismDialogold = ({ isOpen, plagiarismResults, onClose }) => {
-    if (!isOpen) return null;
+    return data.reduce((acc, currentValue) => {
+        // Get the project ID and embedding type
+        const projectId = currentValue.project_id;
+        const embeddingType = currentValue.embeddingtype;
 
-    return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center p-4 z-50">
-            <div className="relative bg-white rounded-lg shadow-xl w-full max-w-lg mx-auto p-6">
-                <div className="text-center">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Plagiarism Check Results</h3>
-                    <div className="mt-2 px-7 py-3 bg-gray-100 rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-300">
-                            <tbody className="divide-y divide-gray-200">
-                            {plagiarismResults.map((item, index) => (
-                                <tr key={index} className="hover:bg-gray-50">
-                                    <td className="py-2">
-                                        <Link target="_blank" href={`/projects/${item.id}`}  className="font-semibold text-gray-800 hover:text-blue-600 hover:underline">
+        // Initialize the project ID group if it doesn't exist
+        if (!acc[projectId]) {
+            acc[projectId] = {};
+        }
 
-                                            {item.title}
+        // Initialize the embedding type group within the project ID group if it doesn't exist
+        if (!acc[projectId][embeddingType]) {
+            acc[projectId][embeddingType] = [];
+        }
 
-                                        </Link>
-                                    </td>
-                                    <td className="py-2 text-right">
-                                            <span className="font-bold text-black">
-                                                {item.similarity}%
-                                            </span>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className="mt-6 text-right">
-                    <button
-                        onClick={onClose}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
-                    >
-                        Okay
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
+        // Push the current value into the appropriate array
+        acc[projectId][embeddingType].push(currentValue);
 
+        return acc;
+    }, {});
+}
 
 
 export default function ProjectDetailsForm({ initialData }) {
@@ -135,9 +123,9 @@ export default function ProjectDetailsForm({ initialData }) {
     const router = useRouter();
     const handleCloseDialog = () => {
         setDialogOpen(false);
-        setTimeout(() => {
-            router.push('/projects');
-        }, 1000)
+        // setTimeout(() => {
+        //     router.push('/projects');
+        // }, 1000)
     };
 
     function handleSaveData(values,setSubmitting){
@@ -148,6 +136,10 @@ export default function ProjectDetailsForm({ initialData }) {
             console.log(response.data.result);
             console.log(response.data.result.all_plagarism_reponses);
 
+
+            setSubmitting(false);
+            console.log("groupedByProjectId");
+            console.log(groupedByProjectId(response.data.result.all_plagarism_reponses));
             if (response.data.result.all_plagarism_reponses?.length > 0) {
                 setPlagiarismResponses(response.data.result.all_plagarism_reponses);
                 setDialogOpen(true); // Open the dialog if there are plagiarism responses
@@ -156,9 +148,9 @@ export default function ProjectDetailsForm({ initialData }) {
 
             showSuccess("Project uploaded successfully")
 
-                setTimeout(() => {
-                    router.push('/projects');
-                }, 1000);
+                // setTimeout(() => {
+                //     router.push('/projects');
+                // }, 1000);
 
             }
         }).catch((error) => {

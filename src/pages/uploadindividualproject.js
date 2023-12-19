@@ -7,6 +7,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import {axiosAiClient} from "@/axiosClient";
 import FileUploadForm from "@/components/project/FileUploadForm";
 import ProjectDetailsForm from "@/components/project/ProjectDetailsForm";
+import {useGlobalState} from "@/state";
 
 
 
@@ -25,12 +26,21 @@ const ProjectUploadSchema = Yup.object().shape({
 export default function UploadIndividualProject() {
     const [step, setStep] = useState(1);
     const [projectData, setProjectData] = useState(null);
+    const [user] = useGlobalState("user")
+
 
     const handleFileUpload = (data) => {
         setProjectData({
-            ...data.content, // Spread the response content into initialValues
+
             summary_file: data.url,
             "project_type": "student",
+            "prototype_sourcecode": "https://github.com/muthuishere/declarative-optional.git",
+            "domain": "software",
+            "projectSummary": "This is a project summary",
+            "institute": "Panimalar Institute of Technology",
+            "members": [user.email],
+          "categories":[],
+            ...data.content, // Spread the response content into initialValues
 
             // ... other fields if necessary ...
         });
@@ -39,6 +49,7 @@ export default function UploadIndividualProject() {
 
 
     useEffect(() => {
+        console.log("user",user)
         //
         // axiosAiClient.get('/api/answer').then((response) => {
         //     console.log(response.data);

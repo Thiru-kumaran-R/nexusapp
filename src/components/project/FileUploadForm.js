@@ -10,7 +10,8 @@ const FileUploadSchema = Yup.object().shape({
         .test(
             'fileType',
             'Unsupported File Format',
-            value => value && ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(value.type)
+            value => value && ['application/pdf',    'text/plain',
+                'text/markdown' ,'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(value.type)
         ),
 });
 
@@ -41,7 +42,7 @@ export default function FileUploadForm({ onFileUpload }) {
                 <Form className="mt-8 space-y-6">
                     <div>
                         <label htmlFor="file" className="block text-sm font-medium text-gray-700">
-                           Choose your Project File (PDF or DOCX)
+                           Choose your Project Summary File (PDF or DOCX or md or txt)
                         </label>
                         <input
                             id="file"
