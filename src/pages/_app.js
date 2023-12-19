@@ -1,3 +1,4 @@
+import 'react-tagsinput/react-tagsinput.css'; // If you want the default styling
 import '@/styles/globals.css'
 import {useEffect} from "react";
 import {useGlobalState} from "@/state";

@@ -30,6 +30,8 @@ export default function UploadIndividualProject() {
         setProjectData({
             ...data.content, // Spread the response content into initialValues
             summary_file: data.url,
+            "project_type": "student",
+
             // ... other fields if necessary ...
         });
         setStep(2); // Move to the next step

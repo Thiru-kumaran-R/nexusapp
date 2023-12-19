@@ -4,6 +4,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import React from "react";
 import TagsInput from "@/components/TagsInput";
 import FormikTagsInput from "@/components/FormikTagsInput";
+import {axiosAiClient} from "@/axiosClient";
 
 const ProjectUploadSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
@@ -15,6 +16,7 @@ const ProjectUploadSchema = Yup.object().shape({
     theme: Yup.string().required('Theme is required'),
     domain: Yup.string().required('Domain is required'),
     projectSummary: Yup.string().required('Project Summary is required'),
+    project_type: Yup.string(),
 });
 
 export default function ProjectDetailsForm({ initialData }) {
@@ -25,7 +27,14 @@ export default function ProjectDetailsForm({ initialData }) {
             onSubmit={(values, { setSubmitting }) => {
                 // Handle form submission here
                 console.log(values);
-                setSubmitting(false);
+
+                axiosAiClient.post('/api/projects', values).then((response) => {
+                    console.log(response.data);
+                    setSubmitting(false);
+                })
+
+
+
             }}
         >
             {({ setFieldValue, isSubmitting }) => (
@@ -42,11 +51,11 @@ export default function ProjectDetailsForm({ initialData }) {
                     <Field name="theme" className="form-input" placeholder="Theme" />
                     <ErrorMessage name="theme" component="div" className="error-message" />
 
-                    <Field name="demoUrl" className="form-input" placeholder="Demo URL" />
-                    <ErrorMessage name="demoUrl" component="div" className="error-message" />
+                    <Field name="prototype_demo" className="form-input" placeholder="Demo URL" />
+                    <ErrorMessage name="prototype_demo" component="div" className="error-message" />
 
-                    <Field name="sourceCodeUrl" className="form-input" placeholder="Source Code URL" />
-                    <ErrorMessage name="sourceCodeUrl" component="div" className="error-message" />
+                    <Field name="prototype_sourcecode" className="form-input" placeholder="Source Code URL" />
+                    <ErrorMessage name="prototype_sourcecode" component="div" className="error-message" />
 
                     <Field name="projectSummary" className="form-input" placeholder="Project Summary" as="textarea" />
                     <ErrorMessage name="projectSummary" component="div" className="error-message" />
@@ -61,6 +70,7 @@ export default function ProjectDetailsForm({ initialData }) {
                     <FormikTagsInput name="categories" placeholder="Add a category" />
 
                     <Field type="hidden" name="summary_file" />
+                    <Field type="hidden" name="project_type" />
 
                     <div>
                         <button type="submit" className="btn-primary" disabled={isSubmitting}>

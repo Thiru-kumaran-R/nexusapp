@@ -24,6 +24,7 @@ export default function Header() {
                 { href: '/industries', label: 'Industries' },
                 { href: '/students', label: 'Students' },
                 { href: '/institutions', label: 'Institutions' },
+                { href: '/projects', label: 'All Projects' },
 
             ];
 

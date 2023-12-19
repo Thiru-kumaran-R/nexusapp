@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField, useFormikContext } from 'formik';
 import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css'; // If you want the default styling
+
 
 
 export default function FormikTagsInput({ name, placeholder,...props }) {
