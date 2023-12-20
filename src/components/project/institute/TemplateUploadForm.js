@@ -4,14 +4,14 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { axiosAiClient } from "@/axiosClient";
 import ErrorMessage from "@/components/ErrorMessage";
+import {showSuccess} from "@/components/notificationcontainers";
 
 const FileUploadSchema = Yup.object().shape({
     file: Yup.mixed().required('A file is required')
         .test(
             'fileType',
             'Unsupported File Format',
-            value => value && ['application/pdf',    'text/plain',
-                'text/markdown' ,'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(value.type)
+            value => value && ['application/csv',    'text/csv'].includes(value.type)
         ),
 });
 
@@ -24,17 +24,18 @@ export default function TemplateUploadForm({ onFileUpload }) {
                 const formData = new FormData();
                 formData.append('file', values.file);
 
-                axiosAiClient.post('/api/projects/uploaddocument', formData, {
+                axiosAiClient.post('/api/projects/uploadmultipleprojecttemplate', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         // ... other headers ...
                     }
                 }).then(response => {
                     onFileUpload(response.data); // Pass the response data to the parent component
+                    showSuccess("Template Uploaded Successfully, and processing started")
                 }).catch(error => {
+                    setSubmitting(false);
                     // Handle the error
                 }).finally(() => {
-                    setSubmitting(false);
                 });
             }}
         >
@@ -42,7 +43,7 @@ export default function TemplateUploadForm({ onFileUpload }) {
                 <Form className="mt-8 space-y-6">
                     <div>
                         <label htmlFor="file" className="block text-sm font-medium text-gray-700">
-                            Choose your Project Summary File (PDF or DOCX or md or txt)
+                            Choose your Template File (CSV)
                         </label>
                         <input
                             id="file"
@@ -57,7 +58,7 @@ export default function TemplateUploadForm({ onFileUpload }) {
                     </div>
                     <div>
                         <button type="submit" className="btn-primary" disabled={isSubmitting}>
-                            Upload
+                            Upload Template
                         </button>
                     </div>
                 </Form>
