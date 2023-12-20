@@ -23,7 +23,7 @@ export default function Login() {
                         </h2>
                     </div>
                     <Formik
-                        initialValues={{ email: 'admin1@admin.com', password: 'password' }}
+                        initialValues={{ email: '', password: '' }}
                         validationSchema={LoginSchema}
                         onSubmit={async (values, {setSubmitting}) => {
                             try {

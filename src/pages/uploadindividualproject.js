@@ -34,10 +34,6 @@ export default function UploadIndividualProject() {
 
             summary_file: data.url,
             "project_type": "student",
-            "prototype_sourcecode": "https://github.com/muthuishere/declarative-optional.git",
-            "domain": "software",
-            "projectSummary": "This is a project summary",
-            "institute": "Panimalar Institute of Technology",
             "members": [user.email],
           "categories":[],
             ...data.content, // Spread the response content into initialValues

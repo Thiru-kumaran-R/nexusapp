@@ -1,5 +1,5 @@
 import {verifyToken} from "@/shared/jwtService";
-
+import { serialize } from "cookie";
 // This is your higher-order function
 export default function withLoggedIn(gssp) {
     return async (context) => {

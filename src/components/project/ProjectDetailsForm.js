@@ -63,7 +63,6 @@ const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
         });
     };
 
-    const data = extractData();
 
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center p-4 z-50">
@@ -76,13 +75,12 @@ const PlagiarismDialog = ({ isOpen, plagiarismResults, onClose }) => {
                             <thead className="bg-gray-50">
                             <tr>
                                 <th>Name</th>
-                                <th>Summary</th>
-                                <th>Source Code</th>
+                                <th>Similarity</th>
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
 
-                            {data.map((item, index) => (
+                            {plagiarismResults.map((item, index) => (
                                 <tr key={index} className="hover:bg-gray-50">
                                     <td className="py-2 text-left">
 
@@ -148,34 +146,32 @@ export default function ProjectDetailsForm({ initialData }) {
     const router = useRouter();
     const handleCloseDialog = () => {
         setDialogOpen(false);
-        // setTimeout(() => {
-        //     router.push('/projects');
-        // }, 1000)
+        setTimeout(() => {
+            router.push('/projects');
+        }, 1000)
     };
 
     function handleSaveData(values,setSubmitting){
         console.log(values);
 
         axiosAiClient.post('/api/projects', values).then((response) => {
-            console.log(response.data);
             console.log(response.data.result);
             console.log(response.data.result.all_plagarism_reponses);
 
 
             setSubmitting(false);
-            console.log("groupedByProjectId");
-            console.log(groupedByProjectId(response.data.result.all_plagarism_reponses));
+            
             if (response.data.result.all_plagarism_reponses?.length > 0) {
-                setPlagiarismResponses(groupedByProjectId(response.data.result.all_plagarism_reponses));
+                setPlagiarismResponses(response.data.result.all_plagarism_reponses);
                 setDialogOpen(true); // Open the dialog if there are plagiarism responses
             }else {
 
 
             showSuccess("Project uploaded successfully")
 
-                // setTimeout(() => {
-                //     router.push('/projects');
-                // }, 1000);
+                setTimeout(() => {
+                    router.push('/projects');
+                }, 1000);
 
             }
         }).catch((error) => {

@@ -48,10 +48,10 @@ export default function Register() {
 
                     <Formik
                         initialValues={{
-                            email: 'muthuishere@test.com',
-                            password: 'password',
-                            confirmPassword: 'password',
-                            userType: 'student',
+                            email: '',
+                            password: '',
+                            confirmPassword: '',
+                            userType: '',
                             institutionName: '',
                             organizationName: ''
                         }}
