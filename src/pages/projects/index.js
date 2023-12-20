@@ -20,9 +20,10 @@ export default function AllProjects() {
     useEffect(() => {
         axiosAiClient.get('/api/allprojects').then((response) => {
             setProjects(response.data);
+            
         })
     }, []);
-
+    
     return (
         <MainLayout title="All Projects">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
