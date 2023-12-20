@@ -3,6 +3,12 @@ import MainLayout from "@/components/layout/MainLayout";
 import { axiosAiClient } from "@/axiosClient";
 import { useRouter } from 'next/router';
 import Link from "next/link";
+import withLoggedIn from "@/guards/withLoggedIn";
+
+export const getServerSideProps = withLoggedIn(async (context) => {
+    return {props: {}};
+});
+
 
 const Breadcrumb = ({ title }) => {
     return (

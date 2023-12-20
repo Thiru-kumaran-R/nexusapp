@@ -3,9 +3,11 @@ import { useRouter } from 'next/router';
 
 import User from "@/users/UserModel";
 import Link from "next/link";
-import React from "react"; // Assuming User model is properly imported
+import React from "react";
+import withLoggedIn from "@/guards/withLoggedIn"; // Assuming User model is properly imported
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = withLoggedIn(async (context) => {
+
     const { id } = context.params;
 
     try {
@@ -25,13 +27,13 @@ export const getServerSideProps = async (context) => {
         console.error('Error fetching institution details:', error);
         return { props: { error: error.message } };
     }
-};
+});
 const Breadcrumb = ({ title }) => {
     return (
         <nav className="bg-grey-light rounded-md w-full mb-4">
             <ol className="list-reset flex">
                 <li>
-                    <Link href="/projects" className="text-blue-600 hover:text-blue-700">
+                    <Link href="/institutions" className="text-blue-600 hover:text-blue-700">
                         Institutes
                     </Link>
                 </li>
@@ -51,16 +53,32 @@ export default function InstitutionDetails({ institution, error }) {
     }
 
     return (
-        <MainLayout title={institution.institutionName || 'Institution Details'}>
-            <Breadcrumb title={institution.institutionName || 'Institution'} />
-            <div className="container mx-auto px-4 sm:px-8 py-4">
-                <h1 className="text-2xl font-semibold mb-4">{institution.institutionName}</h1>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                    <p className="text-gray-600 text-sm mb-4">Email: {institution.email}</p>
-                    <p className="text-gray-600 text-sm mb-4">ID: {institution.id}</p>
 
+
+
+        <MainLayout title={institution.institutionName || 'Institution Details'}>
+
+            <div className="container mx-auto px-4 sm:px-8 py-4">
+                <Breadcrumb title={institution.institutionName || 'Institution'} />
+                <div className="flex flex-col md:flex-row bg-white p-6 rounded-lg shadow-md">
+                    <div className="md:w-1/3 lg:w-1/4 mb-4 md:mb-0 flex justify-center">
+                        <img
+                            src={`https://via.placeholder.com/150?text=${institution.institutionName}`}
+                            alt={`${institution.institutionName} Logo`}
+                            className="rounded-lg shadow-md"
+                        />
+                    </div>
+                    <div className="md:w-2/3 lg:w-3/4 md:pl-6">
+                        <h1 className="text-3xl font-bold mb-4">{institution.institutionName}</h1>
+                        <h2 className="text-xl font-semibold">Industry Details</h2>
+                        <div className="border-t border-gray-200 mt-2 mb-4"></div>
+                        <p className="mb-2"><strong>Name:</strong> {institution.institutionName}</p>
+                        <p className="mb-4"><strong>Email:</strong> {institution.email}</p>
+
+                    </div>
                 </div>
             </div>
         </MainLayout>
+
     );
 }

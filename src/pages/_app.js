@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import {useEffect} from "react";
 import {useGlobalState} from "@/state";
 import App from 'next/app';
+import {loadUserFromStorage} from "@/auth/AuthService";
 
 
 function MyApp({ Component, pageProps,userPayload }) {
@@ -41,6 +42,10 @@ MyApp.getInitialProps = async (appContext) => {
   }
 
 
+
+  }else{
+    console.log("client")
+    loadUserFromStorage()
 
   }
 

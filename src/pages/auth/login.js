@@ -33,6 +33,7 @@ export default function Login() {
                                     console.log(response.data.user)
                                     showSuccess('Successfully Logged In!');
                                     saveTokenInfo(response.data.token);
+                                    saveUserInfo(response.data.user)
                                     // Redirect or perform other actions
                                     window.location.href = '/';
                                 } else {
