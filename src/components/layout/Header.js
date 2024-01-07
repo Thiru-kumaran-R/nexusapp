@@ -20,40 +20,15 @@ export default function Header() {
         let rightMenuItemsInput = []
 
         if(user && user.email !== "") {
+            centerMenuItemsInput = [
+                { href: '/industries', label: 'Industries' },
+                { href: '/students', label: 'Students' },
+                { href: '/institutions', label: 'Institutions' },
+                { href: '/projects', label: 'All Projects' },
 
-            if(isStudent()){
-                centerMenuItemsInput = [
-                    { href: '/industries', label: 'Industries' },
-                    { href: '/institutions', label: 'Institutions' },
-                    { href: '/projects', label: 'All Projects' },
-    
-                ]; 
-            
-            }
-            else if(isInstitute()){
-                centerMenuItemsInput = [
-                    { href: '/industries', label: 'Industries' },
-                    { href: '/projects', label: 'All Projects' },
-    
-                ]; 
-            }else if(isOrganisation()){
-                centerMenuItemsInput = [
-                    { href: '/students', label: 'Students' },
-                    { href: '/institutions', label: 'Institutions' },
-                    { href: '/projects', label: 'All Projects' },
-    
-                ];
-            }else if(isAdmin()){
-                centerMenuItemsInput = [
-                    { href: '/industries', label: 'Industries' },
-                    { href: '/students', label: 'Students' },
-                    { href: '/institutions', label: 'Institutions' },
-                    { href: '/projects', label: 'All Projects' },
-    
-                ];
-            }
-            
-            
+            ];
+
+
 
 
             if(isStudent() || isAdmin() || isInstitute() ){
