@@ -3,6 +3,12 @@ import MainLayout from "@/components/layout/MainLayout";
 import { axiosAiClient } from "@/axiosClient";
 import { useRouter } from 'next/router';
 import Link from "next/link";
+import withLoggedIn from "@/guards/withLoggedIn";
+
+export const getServerSideProps = withLoggedIn(async (context) => {
+    return {props: {}};
+});
+
 
 const Breadcrumb = ({ title }) => {
     return (
@@ -22,9 +28,28 @@ const Breadcrumb = ({ title }) => {
 
 export  function  ProjectDetails() {
     const router = useRouter();
-    const { id } = router.query;
-    const [project, setProject] = React.useState(null);
+    const linkedInUrls = [
+        'https://www.linkedin.com/in/aarchana-nichani/',
+        'https://www.linkedin.com/in/akshaya-n/',
+        'https://www.linkedin.com/in/sai-varsha/',
+        'https://www.linkedin.com/in/sai-varsha/',
+        'https://www.linkedin.com/in/dharshini-s/',
+        'https://www.linkedin.com/in/jeevan-kumar-s-j/',
+        'https://www.linkedin.com/in/krishnarajmony/',
+        'https://www.linkedin.com/in/guruprathosh/',
+        'https://www.linkedin.com/in/suraj3010/',
+        'https://www.linkedin.com/in/dr-ganesh-subramanian-phd/',
 
+
+
+        // ... other profile URLs
+      ];
+      const { id } = router.query;
+    const [project, setProject] = React.useState(null);
+    function getRandomLinkedInUrl() {
+        const randomIndex = Math.floor(Math.random() * linkedInUrls.length);
+        return linkedInUrls[randomIndex];
+      }
     // Chat Implement here
 
     React.useEffect(() => {
@@ -65,10 +90,15 @@ export  function  ProjectDetails() {
                         <h2 className="text-xl font-semibold">Members</h2>
                         <div className="border-t border-gray-200 mt-2 mb-4"></div>
                         <ul>
-                            {project.members.map((member, index) => (
-                                <li key={index} className="text-gray-600">{member}</li>
-                            ))}
-                        </ul>
+  {project.members.map((member, index) => (
+    <li key={index} className="flex items-center text-gray-600">
+      {member}
+      <a href={getRandomLinkedInUrl()} target="_blank" rel="noopener noreferrer" className="ml-2">
+        <i className="fab fa-linkedin" aria-hidden="true"></i>
+      </a>
+    </li>
+  ))}
+</ul>
                     </div>
 
                     <div className="mb-4">
@@ -80,6 +110,7 @@ export  function  ProjectDetails() {
                             ))}
                         </ul>
                     </div>
+                    
                 </div>
             </div>
             <Link href={`/projects/chat/${id}`}  className="chat-icon">

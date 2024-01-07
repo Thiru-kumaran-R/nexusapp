@@ -4,6 +4,7 @@ import {validateToken} from "@/shared/jwtService";
 
 export function loadUserFromStorage() {
     const user = localStorage.getItem('user');
+    console.log("loadUserFromStorage",user)
     if (user) {
 
         //validate Token from cookie and set it to global state

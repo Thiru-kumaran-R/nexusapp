@@ -37,7 +37,8 @@ export default function Welcome({ data, error }) {
 
     return (
         <MainLayout title="Home Page">
-            <h1>Welcome </h1>
+            <h1>Project Nexus-</h1>
+            <p> Let's Create India's next Innovator</p>
         </MainLayout>
     );
 }

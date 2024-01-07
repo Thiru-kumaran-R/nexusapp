@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useGlobalState} from "@/state";
-import {isAdmin, isInstitute, isStudent} from "@/auth/AuthService";
+import {isAdmin, isInstitute, isOrganisation, isStudent} from "@/auth/AuthService";
 import {useRouter} from "next/router";
 
 export default function Header() {
@@ -15,29 +15,55 @@ export default function Header() {
         return route === router.pathname ? 'active-class' : ''; // Replace 'active-class' with your actual active class
     }
     useEffect(() => {
-
+        console.log(user)
         let centerMenuItemsInput = []
         let rightMenuItemsInput = []
 
         if(user && user.email !== "") {
-            centerMenuItemsInput = [
-                { href: '/industries', label: 'Industries' },
-                { href: '/students', label: 'Students' },
-                { href: '/institutions', label: 'Institutions' },
-                { href: '/projects', label: 'All Projects' },
 
-            ];
+            if(isStudent()){
+                centerMenuItemsInput = [
+                    { href: '/industries', label: 'Industries' },
+                    { href: '/institutions', label: 'Institutions' },
+                    { href: '/projects', label: 'All Projects' },
+    
+                ]; 
+            
+            }
+            else if(isInstitute()){
+                centerMenuItemsInput = [
+                    { href: '/industries', label: 'Industries' },
+                    { href: '/projects', label: 'All Projects' },
+    
+                ]; 
+            }else if(isOrganisation()){
+                centerMenuItemsInput = [
+                    { href: '/students', label: 'Students' },
+                    { href: '/institutions', label: 'Institutions' },
+                    { href: '/projects', label: 'All Projects' },
+    
+                ];
+            }else if(isAdmin()){
+                centerMenuItemsInput = [
+                    { href: '/industries', label: 'Industries' },
+                    { href: '/students', label: 'Students' },
+                    { href: '/institutions', label: 'Institutions' },
+                    { href: '/projects', label: 'All Projects' },
+    
+                ];
+            }
+            
+            
 
 
-
-            if(isStudent() || isAdmin()){
+            if(isStudent() || isAdmin() || isInstitute() ){
 
                 centerMenuItemsInput.push({ href: '/uploadindividualproject', label: 'Upload Project' })
             }
-            // if(isInstitute() || isAdmin()){
-            //
-            //     centerMenuItemsInput.push({ href: '/uploadinstituteproject', label: 'Upload Institute Project' })
-            // }
+            if(isInstitute() || isAdmin()){
+        
+                 centerMenuItemsInput.push({ href: '/uploadinstituteproject', label: 'Upload Multiple Projects' })
+             }
 
             rightMenuItemsInput = [
                 { href: '/auth/logout',label: 'Logout'}
